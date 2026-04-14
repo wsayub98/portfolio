@@ -1,6 +1,7 @@
 # Portfolio
 
 ## Project Structure
+```python
 portfolio/
 │
 ├── app/
@@ -10,15 +11,19 @@ portfolio/
 │   ├── models/
 │   │   └── portfolio.py
 │   │
+│   ├── repositories/
+    │   └── portfolio_repository.py
+    │
 │   └── services/
 │       └── portfolio_service.py
 │
 ├── core/
 │   ├── server.py
 │   ├── router.py
-│   └── request.py
+│   └── database.py
 │
 ├── routes/
 │   └── web.py
 │
 ├── main.py
+```

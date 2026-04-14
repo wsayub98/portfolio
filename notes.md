@@ -1,4 +1,11 @@
 # PYTHON
+ - python3
+ - pip3
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
 
 ## class
 
@@ -51,3 +58,59 @@ router class to handle path, method and action
 
 
 
+# POSTGRESQL
+- sudo apt install postgresql
+- psycopg2 . PostgreSQL python db adapter.
+
+## Driver
+
+### psycopg2
+```bash
+pip3 install psycopg2-binary
+```
+
+## DB
+
+### Operations
+```bash
+sudo -i -u postgres
+```
+
+```sql
+ALTER USER postgres WITH PASSWORD 'postgres';
+```
+
+```sql
+CREATE USER root WITH PASSWORD 'messi' CREATEDB CREATEROLE;
+```
+
+```sql
+CREATE DATABASE portfolio;
+```
+
+```bash
+psql -U root -d portfolio -h localhost -W
+```
+
+# PYTHON Psycopg usage
+
+```python
+class DATABASE:
+    # static method to define connection.
+    # return psycopg2 connect () with params to connect db.
+    # dbname, user, password, host, port
+```
+
+## Repository to perform DB Operations
+
+```python
+class ClassRepository:
+    # staticmethod - select, create, update, delete
+    # inside method - connect to DB class, open cursor, cursor execute sql, fetch, close conn,cur
+    # fetch: cursor_factory - RealDictCursor~([param]), None~(tuple - [0])
+```
+
+### Basic Flow
+```python
+Database > RepositoryClass > ServiceClass~ModelClass > ControllerClass
+```
