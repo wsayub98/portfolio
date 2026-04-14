@@ -12,8 +12,8 @@ portfolio/
 │   │   └── portfolio.py
 │   │
 │   ├── repositories/
-    │   └── portfolio_repository.py
-    │
+│   │   └── portfolio_repository.py
+│   │
 │   └── services/
 │       └── portfolio_service.py
 │
