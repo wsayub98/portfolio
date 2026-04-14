@@ -1,8 +1,8 @@
 class Portfolio:
     def __init__(self, name, experience, skills, companies):
-        self.name = (name,)
-        self.experience = (experience,)
-        self.skills = (skills,)
+        self.name = name
+        self.experience = experience
+        self.skills = skills
         self.companies = companies
 
     def to_dict(self):

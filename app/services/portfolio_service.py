@@ -1,20 +1,20 @@
+import json
 from app.models.portfolio import Portfolio
+from app.repositories.portfolio_repository import PortfolioRepository
 
 
 class PortfolioService:
     @staticmethod
     def get_portfolio():
-        portfolio = Portfolio(
-            name="Ronaldo",
-            experience=4,
-            skills=["PHP", "Laravel", "CodeIgniter", "Drupal"],
-            companies=[
-                {"name": "Company A", "role": "Developer"},
-                {"name": "Company B", "role": "PHP Developer"},
-                {"name": "Company C", "role": "Laravel Developer"},
-            ],
-        )
+        fetched = PortfolioRepository.get_all()
+        data = fetched[0]
 
+        portfolio = Portfolio(
+            name=data["name"],
+            experience=data["experience"],
+            skills=data["skills"],
+            companies=data["companies"],
+        )
         data = portfolio.to_dict()
 
         return {
