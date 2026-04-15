@@ -81,7 +81,7 @@ ALTER USER postgres WITH PASSWORD 'postgres';
 ```
 
 ```sql
-CREATE USER root WITH PASSWORD 'messi' CREATEDB CREATEROLE;
+CREATE USER root WITH PASSWORD 'password' CREATEDB CREATEROLE;
 ```
 
 ```sql
