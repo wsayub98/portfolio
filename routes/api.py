@@ -1,8 +1,13 @@
+from core.router import Router
 from app.controllers.portfolio_controller import PortfolioController
 
-routes = {
-    "v1": [
-        {"path": "/portfolio", "method": "POST", "action": PortfolioController.index},
-        {"path": "/portfolio", "method": "GET", "action": PortfolioController.index},
-    ]
-}
+
+def setup():
+    rType = "api"
+    rVersion = "v1"
+
+    Router.register(f"/{rType}/{rVersion}/portfolio", "POST", PortfolioController.index)
+    Router.register(
+        f"/{rType}/{rVersion}/portfolio/index", "GET", PortfolioController.index
+    )
+    Router.register(f"/{rType}/{rVersion}/admin", "GET", PortfolioController.update)
