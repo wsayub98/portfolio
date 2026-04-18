@@ -29,8 +29,9 @@ class PortfolioController:
     def update(params: dict):
         conn = None
         try:
-            params = PortfolioValidator.validate(params)
             conn = Database.connect()
+
+            params = PortfolioValidator.validate(params)
             # service class to update
             service_update = PortfolioService.update_portfolio(conn, params)
 
