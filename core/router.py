@@ -1,4 +1,9 @@
 from typing import Callable
+from typing_extensions import TYPE_CHECKING
+import json
+
+if TYPE_CHECKING:
+    from core.server import RequestHandler
 
 
 class Router:
@@ -9,10 +14,14 @@ class Router:
         Router._routes[(path, method)] = action
 
     @staticmethod
-    def handle(handler):
+    def handle(handler: "RequestHandler"):
         action = Router._routes.get((handler.path, handler.command))
         if action:
-            response = action()
+            content_length = int(handler.headers["Content-Length"])
+            body = handler.rfile.read(content_length)
+            params = json.loads(body.decode("utf-8")) if body else None
+
+            response = action(params)
 
             handler.send_response(200)
             handler.send_header("Content-type", "application_json")

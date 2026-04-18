@@ -17,16 +17,21 @@ class ClassName
         self.params = params
 
     def to_dict(self):
-        return {
-            "params": [
-                {
-                    "key1": "value1"
-                },
-                {
-                    "key1": "value1"
-                }
-            ]
-        }
+        try:
+            return {
+                "params": [
+                    {
+                        "key1": "value1"
+                    },
+                    {
+                        "key1": "value1"
+                    }
+                ]
+            }
+        except Exception as e:
+            return {
+                "error": str(e)
+            }
 
 classObj = className(params=[{"key1": "vlaue1"}])
 
@@ -49,14 +54,17 @@ class RequestHandler(BaseHttpRequestHandler):
 
 ## Router
 
-router class to handle path, method and action
- - static function
-  - get path, method
-  - loop routes against request url
-  - loop until found, if found return respone with 200 code
-  - failed, exit loop return error with 404 code (page not found)
+### Router Class
+1. register - receive routes defined.
+2. set a dict for each route with path,method as key(tuple) and action as value.
+3. assign to a local variable that can use accross functions in the router class.
+4. handle / request handler. use handler.path,handler.command to find route action in a dict set at no.2
 
 
+### Routes storage
+1. define path, method, action
+2. action called from Controller 
+3. register by using Router class 
 
 # POSTGRESQL
 - sudo apt install postgresql
@@ -92,6 +100,7 @@ CREATE DATABASE portfolio;
 psql -U root -d portfolio -h localhost -W
 ```
 
+
 # PYTHON Psycopg usage
 
 ```python
@@ -113,4 +122,32 @@ class ClassRepository:
 ### Basic Flow
 ```python
 Database > RepositoryClass > ServiceClass~ModelClass > ControllerClass
+```
+
+# PYTHON POSTGRESQL
+```python
+import json
+json.dumps(dict_data)
+```
+- convert to json before update/insert json column datatype
+
+## CRUD
+### Update
+```python
+sql = f"UPDATE table SET {key1} = %s, {key2} = %s, {json_key} = %s WHERE id = %s"
+values = (value1, value2, json_value)
+cursor.execute(sql, values)
+```
+
+# API Request
+## Get params body
+```python
+content_length = int(handler.headers["Content-Length"])
+body = handler.rfile.read(content_length)
+params = json.loads(body.decode("utf-8")) if body else None
+```
+
+## Validation
+```python
+Raise ValidationError(message)
 ```
