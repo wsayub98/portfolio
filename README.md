@@ -14,8 +14,9 @@ portfolio/
 │   ├── repositories/
 │   │   └── portfolio_repository.py
 │   │
-│   └── services/
-│       └── portfolio_service.py
+│   ├── services/
+│   │   └── portfolio_service.py
+│   │...
 │
 ├── core/
 │   ├── server.py
@@ -23,7 +24,7 @@ portfolio/
 │   └── database.py
 │
 ├── routes/
-│   └── web.py
+│   └── api.py
 │
 ├── main.py
 ```
