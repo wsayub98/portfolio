@@ -1,4 +1,6 @@
+import psycopg2
 from psycopg2.extras import RealDictCursor
+from devtools import debug
 
 
 class PortfolioRepository:
@@ -25,7 +27,7 @@ class PortfolioRepository:
     """
 
     @staticmethod
-    def update_portfolio(conn, params):
+    def update(conn: psycopg2.extensions.connection, params):
         cur = conn.cursor(cursor_factory=RealDictCursor)
         field = []
         values = []
@@ -40,15 +42,51 @@ class PortfolioRepository:
         sql = f"UPDATE portfolios SET {set_clause} WHERE id = %s"
 
         cur.execute(sql, values)
-        rowCount = cur.rowcount
+        updated_row_count = cur.rowcount
         cur.close()
 
-        return rowCount
+        return updated_row_count
 
     """
     CREATE portfolio
     """
 
+    @staticmethod
+    def create(conn: psycopg2.extensions.connection, params):
+        cur = conn.cursor(cursor_factory=RealDictCursor)
+        field = []
+        values = []
+        string_holder = []
+        for key, value in params.items():
+            if key in ["id"]:
+                continue
+            field.append(f"{key}")
+            values.append(value)
+            string_holder.append(f"%s")
+
+        columns = ", ".join(field)
+        placeholder = ", ".join(string_holder)
+        sql = f"INSERT INTO portfolios ({columns}) VALUES ({placeholder}) RETURNING id, {columns}"
+
+        cur.execute(sql, values)
+        data = cur.fetchone()
+
+        cur.close()
+
+        return data
+
     """
     DELETE portfolio
     """
+
+    @staticmethod
+    def delete(conn: psycopg2.extensions.connection, params):
+        cur = conn.cursor()
+        debug(params)
+        sql = f"DELETE FROM portfolios WHERE id = %s"
+
+        cur.execute(sql, [params["id"]])
+        deleted_row_count = cur.rowcount
+        cur.close()
+
+        return deleted_row_count

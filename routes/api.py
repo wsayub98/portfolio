@@ -9,12 +9,14 @@ def setup():
 
     Router.register(f"/{rType}/{rVersion}/portfolio", "POST", PortfolioController.index)
     Router.register(
-        f"/{rType}/{rVersion}/portfolio/index", "GET", PortfolioController.index
-    )
-    Router.register(
         f"/{rType}/{rVersion}/admin/login", "POST", UserController.authenticate
     )
-
+    Router.register(
+        f"/{rType}/{rVersion}/portfolio/create", "POST", PortfolioController.store
+    )
     Router.register(
         f"/{rType}/{rVersion}/portfolio/update", "POST", PortfolioController.update
+    )
+    Router.register(
+        f"/{rType}/{rVersion}/portfolio/delete", "DELETE", PortfolioController.destroy
     )

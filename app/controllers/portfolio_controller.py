@@ -22,8 +22,23 @@ class PortfolioController:
                 conn.close()
 
     @staticmethod
-    def store(params=None):
-        pass
+    def store(params: dict):
+        conn = None
+        try:
+            conn = Database.connect()
+
+            params = PortfolioValidator.validate_store(params)
+            service = PortfolioService.create_portfolio(conn, params)
+            conn.commit()
+
+            return json.dumps(service)
+        except Exception as e:
+            if conn:
+                conn.rollback()
+            return json.dumps({"status": False, "error": str(e)})
+        finally:
+            if conn:
+                conn.close()
 
     @staticmethod
     def update(params: dict):
@@ -32,11 +47,30 @@ class PortfolioController:
             conn = Database.connect()
 
             params = PortfolioValidator.validate(params)
-            # service class to update
             service_update = PortfolioService.update_portfolio(conn, params)
-
             conn.commit()
+
             return json.dumps(service_update)
+        except ValidationError as e:
+            return json.dumps({"status": False, "error": str(e)})
+        except Exception as e:
+            if conn:
+                conn.rollback()
+            return json.dumps({"status": False, "error": str(e)})
+        finally:
+            if conn:
+                conn.close()
+
+    @staticmethod
+    def destroy(params: dict):
+        conn = None
+        try:
+            conn = Database.connect()
+            params = PortfolioValidator.validate(params)
+            service = PortfolioService.delete_portfolio(conn, params)
+            conn.commit()
+
+            return json.dumps(service)
         except ValidationError as e:
             return json.dumps({"status": False, "error": str(e)})
         except Exception as e:

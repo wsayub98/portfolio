@@ -9,6 +9,9 @@ class RequestHandler(BaseHTTPRequestHandler):
     def do_POST(self):
         Router.handle(self)
 
+    def do_DELETE(self):
+        Router.handle(self)
+
 
 def run(server_class=HTTPServer, handler=RequestHandler):
     server_address = ("", 8000)

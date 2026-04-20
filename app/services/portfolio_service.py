@@ -1,6 +1,7 @@
 import json
 from app.models.portfolio import Portfolio
 from app.repositories.portfolio_repository import PortfolioRepository
+from devtools import debug
 
 
 class PortfolioService:
@@ -24,22 +25,57 @@ class PortfolioService:
             }
 
     @staticmethod
+    def create_portfolio(conn, params):
+        try:
+            model = PortfolioService._instantiate(params)
+            params_new = model.transform()
+            created = PortfolioRepository.create(conn, params_new)
+
+            return {
+                "status": True,
+                "data": created,
+            }
+        except Exception as e:
+            return {
+                "status": False,
+                "error": str(e),
+            }
+
+    @staticmethod
     def update_portfolio(conn, params):
         try:
             portfolio = PortfolioService._instantiate(params)
             params_new = portfolio.transform()
+            updated = PortfolioRepository.update(conn, params_new)
 
-            updated = PortfolioRepository.update_portfolio(conn, params_new)
-            return {"status": True, "data": updated}
+            return {
+                "status": True,
+                "data": updated,
+            }
         except Exception as e:
-            return {"status": False, "error": str(e)}
+            return {
+                "status": False,
+                "error": str(e),
+            }
+
+    @staticmethod
+    def delete_portfolio(conn, params):
+        try:
+            deleted = PortfolioRepository.delete(conn, params)
+
+            return {"status": True, "data": deleted}
+        except Exception as e:
+            return {
+                "status": False,
+                "error": str(e),
+            }
 
     @staticmethod
     def _instantiate(params):
         return Portfolio(
-            id=params["id"],
-            name=params["name"],
-            experience=params["experience"],
-            skills=params["skills"],
-            companies=params["companies"],
+            id=params.get("id"),
+            name=params.get("name"),
+            experience=params.get("experience"),
+            skills=params.get("skills", []),
+            companies=params.get("companies", []),
         )
