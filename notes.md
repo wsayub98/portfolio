@@ -136,7 +136,17 @@ json.dumps(dict_data)
 ```python
 sql = f"UPDATE table SET {key1} = %s, {key2} = %s, {json_key} = %s WHERE id = %s"
 values = (value1, value2, json_value)
-cursor.execute(sql, values)
+cursor.execute(sql, values: list)
+```
+### Create
+```python
+sql = f"INSERT INTO table ({key1},{key2}) VALUES (%s, %s)"
+cursor.execute(sql, values:list)
+``` 
+### Delete
+```python
+sql = f"DELETE FROM table WHERE id = %s"
+cursor.execute(sql, values:list)
 ```
 
 # API Request

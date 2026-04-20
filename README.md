@@ -1,5 +1,5 @@
 # Portfolio
-🫰 ***I am learning python for fun!*** 🫰
+🐍 ***I am learning Python... YEAH!!*** 🐍
 ## Project Structure
 ```python
 portfolio/
