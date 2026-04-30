@@ -39,4 +39,4 @@ class Router:
 
         handler.send_response(404)
         handler.end_headers()
-        handler.wfile.write(b'{"error": "Page Not Found! 404"}')
+        handler.wfile.write(b'{"status": false, "error": "Page Not Found! 404"}')
