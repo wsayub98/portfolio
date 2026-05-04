@@ -51,6 +51,12 @@ class RequestHandler(BaseHttpRequestHandler):
     
 # global func to run server.
 ```
+### HTTP response constructing order:
+1. send_response()
+2. send_header()
+3. end_headers()
+4. wfile.write()
+
 
 ## Router
 
@@ -160,4 +166,19 @@ params = json.loads(body.decode("utf-8")) if body else None
 ## Validation
 ```python
 Raise ValidationError(message)
+```
+
+# CORS
+## Method
+- OPTIONS . preflight request from browser to check CORS
+- to allow cors. backend needs to allow origin,method,header
+```python
+// in HttpRequestHandeler class
+def do_OPTIONS(self): 
+    // send_response code 200
+    // end_headers 
+
+def end_headers(self):
+    // send_header => access-control-allow-... origin,methods,headers
+    // return super().end_headers
 ```
