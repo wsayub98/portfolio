@@ -1,3 +1,9 @@
+# RUN App Command
+```bash
+# For development.
+watchmedo auto-restart --pattern="*.py" --recursive python3 main.py
+```
+
 # PYTHON
  - python3
  - pip3
@@ -100,6 +106,9 @@ CREATE USER root WITH PASSWORD 'password' CREATEDB CREATEROLE;
 
 ```sql
 CREATE DATABASE portfolio;
+```
+```sql
+ALTER TABLE portfolios ADD COLUMN projects jsonb DEFAULT null;
 ```
 
 ```bash

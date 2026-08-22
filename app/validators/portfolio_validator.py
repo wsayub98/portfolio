@@ -32,6 +32,10 @@ class PortfolioValidator:
         if not companies or not isinstance(companies, list):
             errors["companies"] = "companies is required and must be dict."
 
+        projects = data.get("projects")
+        if not projects or not isinstance(projects, list):
+            errors["projects"] = "projects is required and must be dict."
+
         if errors:
             raise ValidationError(errors)
 

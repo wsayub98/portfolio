@@ -13,7 +13,7 @@ class PortfolioRepository:
         cur = conn.cursor(cursor_factory=RealDictCursor)
         # cur = conn.cursor()
         # Execute command
-        sql = "SELECT id, name, experience, skills, companies FROM portfolios LIMIT 1;"
+        sql = "SELECT id, name, experience, skills, companies, projects FROM portfolios LIMIT 1;"
         cur.execute(sql)
         # Obtain data
         rows = cur.fetchall()

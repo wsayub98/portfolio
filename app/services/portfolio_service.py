@@ -78,4 +78,5 @@ class PortfolioService:
             experience=params.get("experience"),
             skills=params.get("skills", []),
             companies=params.get("companies", []),
+            projects=params.get("projects", []),
         )
