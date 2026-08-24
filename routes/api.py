@@ -8,9 +8,9 @@ def setup():
     rVersion = "v1"
 
     Router.register(f"/{rType}/{rVersion}/portfolio", "POST", PortfolioController.index)
-    Router.register(
-        f"/{rType}/{rVersion}/admin/login", "POST", UserController.authenticate
-    )
+    # Router.register(
+    #     f"/{rType}/{rVersion}/admin/login", "POST", UserController.authenticate
+    # )
     Router.register(
         f"/{rType}/{rVersion}/portfolio/create", "POST", PortfolioController.store
     )
