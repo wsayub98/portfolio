@@ -1,4 +1,5 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
+import os
 from core.router import Router
 
 
@@ -24,9 +25,10 @@ class RequestHandler(BaseHTTPRequestHandler):
 
 
 def run(server_class=HTTPServer, handler=RequestHandler):
-    server_address = ("", 8000)
+    port = int(os.getenv("PORT", 8000))
+    server_address = ("0.0.0.0", port)
     httpd = server_class(server_address, handler)
-    print("Server running at http://localhost:8000")
+    print(f"Server running on port {port}")
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:
