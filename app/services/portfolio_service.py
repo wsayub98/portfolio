@@ -1,8 +1,6 @@
 import json
 from app.models.portfolio import Portfolio
 from app.repositories.portfolio_repository import PortfolioRepository
-from devtools import debug
-
 
 class PortfolioService:
     @staticmethod

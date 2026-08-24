@@ -1,7 +1,6 @@
 from typing import Callable
 from typing_extensions import TYPE_CHECKING
 import json
-from devtools import debug
 
 if TYPE_CHECKING:
     from core.server import RequestHandler

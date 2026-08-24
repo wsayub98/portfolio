@@ -1,7 +1,5 @@
 import psycopg2
 from psycopg2.extras import RealDictCursor
-from devtools import debug
-
 
 class PortfolioRepository:
     """
@@ -82,7 +80,6 @@ class PortfolioRepository:
     @staticmethod
     def delete(conn: psycopg2.extensions.connection, params):
         cur = conn.cursor()
-        debug(params)
         sql = f"DELETE FROM portfolios WHERE id = %s"
 
         cur.execute(sql, [params["id"]])

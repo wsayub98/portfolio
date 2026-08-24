@@ -2,8 +2,6 @@ import json
 from app.services.portfolio_service import PortfolioService
 from app.validators.portfolio_validator import PortfolioValidator, ValidationError
 from core.database import Database
-from devtools import debug
-
 
 class PortfolioController:
     @staticmethod
